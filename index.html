@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Unix Tutorial</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/prism.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+  <header>
+    <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h1><a href="#">Learning Unix</a>
+          <p class="lead">with the Yelp Academic Dataset</p></h1>
+      </div>
+      <!-- <div class="col-md-6">
+        <div class="pull-right hidden-sm">    
+          <h1><a href="#"><i class="glyphicon glyphicon-user"></i> <i class="glyphicon glyphicon-chevron-down"></i></a></h1>
+        </div>
+      </div> -->
+    </div>
+    </div>
+  </header>   
+
+<!-- Begin Body -->
+<div class="container">
+  <div class="row">
+        <div class="col-md-3">
+              
+                <div class="list-group" id="sidebar">
+                  <a href="#preview" class="list-group-item">Preview File
+                  </a>
+                  <a href="#count-lines" class="list-group-item">Count Lines
+                  </a>
+                  <a href="#col-names" class="list-group-item">Column Names
+                  </a>
+                  <a href="#stars" class="list-group-item">Star Ratings
+                  </a>
+                  <a href="#unique-users" class="list-group-item">Unique Users
+                  </a>
+                </div>
+              
+          </div>  
+          <div class="col-md-9">
+                <!-- ############################### PREVIEW ###############################-->
+                <h2 id="preview">Preview your file</h2>
+                <p>Use <code>less</code> to view some of the data file.</p>
+
+                <p><i>Hint</i>: navigation works just like on the man pages: spacebar to page down, b to page up, arrows to move one line up/down/left/right)</p>
+
+                <pre> <code>less yelp_reviews.txt</code></pre>
+              
+                <hr class="col-md-12">
+                <!-- ############################### COUNT LINES ###############################-->
+                <h2 id="count-lines">Count lines</h2>
+                <p>How many lines are in the file? We can find out with the <code>wc</code> (word count) command, using the <code>-l</code> (lines) option.
+                </p>
+
+                <pre> <code>wc -l yelp_reviews.txt</code></pre>
+                <samp>220,001 yelp_reviews.txt</samp>
+                <br><br><br>
+
+                <p>Note that using <code>wc</code> without the <code>-l</code> option will return three values: the number of <b>lines</b>, <b>words</b> (split at white space characters), and <b>characters</b>.</p>
+                <pre> <code>wc yelp_reviews</b>.txt</code></pre>
+                <samp> 220001 28723335 177604873 yelp_reviews.txt</samp>
+
+                <hr class="col-md-12">
+        
+                <!-- ############################### COLUMN NAMES ###############################-->
+                <h2 id="col-names">Column names</h2>
+                <p>What are the column names for this file? Let’s look at the first row. The <code>head</code> command will print the first few lines of the file. The <code>-1</code> option will give just the first row.
+                </p>
+
+                <pre> <code>head -1 yelp_reviews.txt</code></pre>
+                <samp>business_id|date|review_id|stars|text|type|user_id|votes.cool|votes.funny|votes.useful</samp>
+                <br><br><br>
+
+
+                <p>You will need to reference these columns by their column number in later comands, so it is useful to view the names along with their column number. </p>
+                <p> We can use the <code>tr</code> command (translate) to replace the pipe character with a new line, and then print this output with each item enumerated, using the <code>-n</code> option of <code>cat</code>.
+                <pre> <code>head -1 yelp_reviews.txt | tr '|' '\n' | cat -n</code></pre>
+                <samp>
+                  1  business_id <br>
+                  2  date <br>
+                  3  review_id <br>
+                  4  stars <br>
+                  5  text <br>
+                  6  type <br>
+                  7  user_id <br>
+                  8  votes.cool <br>
+                  9  votes.funny <br>
+                  10  votes.useful <br>
+                </samp>
+
+
+                <hr class="col-md-12">
+
+                <!-- ############################### STARS ###############################-->
+                <h2 id="stars">Star ratings</h2>
+                <p>Are the star ratings all whole numbers? Let’s check.</p>
+                <p>We know that stars is the 4th column. By using the <code>cut</code> command, we can pull out the stars column.</p>
+                <p>Our file delimiter here is a pipe character, so we specify the cut delimiter option as <code>-d\|</code>. Since the pipe has a special meaning in the command line, we must escape it with a backslash.</p>
+
+                <p>The field we want to select is stars, which is the 4th column. Unix indexes columns numerically (starting with 1), so we specify <code>-f4</code> to select the 4th column.</p>
+
+                <p><b>Now we are ready to find the unique values!</b> To do this we use the <code>uniq</code> command, which takes sorted data. (Note that  <code>sort | uniq</code> is equivalent to <code>sort -u</code>.)
+                </p>
+
+                <pre> <code>cut -d\| -f4 yelp_reviews.txt | sort | uniq</code></pre>
+                <samp>
+                    1.0 <br>
+                    2.0 <br>
+                    3.0 <br>
+                    4.0 <br>
+                    5.0 <br>
+                    stars</samp>
+                  <br><br><br>
+                <p>Notice that the value from row 1 (the column header) is returned as one of the unique values. Before sorting, <code>tail + 2</code> will filter your selection to only include rows 2 to the end.</p>
+                <pre> <code>cut -d\| -f4 yelp_reviews.txt | tail +2 | sort | uniq</code></pre>
+                <samp>
+                    1.0 <br>
+                    2.0 <br>
+                    3.0 <br>
+                    4.0 <br>
+                    5.0 </samp>
+
+
+                <hr class="col-md-12">
+
+                <!-- ############################### UNIQUE USERS ###############################-->
+                <h2 id="unique-users">Unique Users</h2>
+                <p>How many unique users have left reviews? We can use <code>cut</code> to select the user column, <code>uniq</code> to get the unique users, and <code>wc -l</code> to get a count of those lines.
+                </p>
+
+                <pre> <code>cut -d\| -f7 yelp_reviews.txt | tail +2 | sort | uniq | wc -l</code></pre>
+                <samp>44,993</samp>
+                <hr class="col-md-12">                        
+                
+                
+          </div> 
+    </div>
+</div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    // <script src="js/prism.js"></script>
+    <script src="js/script.js"></script>
+
+  </body>
+</html>
