@@ -1,370 +1,567 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Unix Tutorial</title>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unix Tutorial</title>
 
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/prism.css" rel="stylesheet">
+  <!-- Bootstrap -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
+<!-- Navigation -->
+<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse"
+              data-target=".navbar-main-collapse">
+        <i class="fa fa-bars"></i>
+      </button>
+      <a class="navbar-brand page-scroll" href="#">
+        <span id="page-title">Practical Unix</span>
+      </a>
+    </div>
 
-  <header>
-    <div class="container">
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="index.html">Data Manipulation</a></li>
+        <li><a href="commands.html">Unix Basics</a></li>
+        <li><a href="https://github.com/tebarkley/unix-tutorial"
+               target="_blank" class="gh-link"><img
+            src='images/GitHub-Mark-32px.png' alt='github'></a></li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+
+<header>
+  <div class="container">
     <div class="row">
-      <div class="col-md-6">
-        <h1><a href="#">Learning Unix</a>
-          <p class="lead">with the Yelp Academic Dataset</p></h1>
-      </div>
-      <!-- <div class="col-md-6">
-        <div class="pull-right hidden-sm">    
-          <h1><a href="#"><i class="glyphicon glyphicon-user"></i> <i class="glyphicon glyphicon-chevron-down"></i></a></h1>
-        </div>
-      </div> -->
     </div>
-    </div>
-  </header>   
+  </div>
+</header>
 
 <!-- Begin Body -->
+
+<body id="page-top" data-spy="scroll" data-target='.sidebar'>
+
 <div class="container">
-  <div class="row">
-        <div class="col-md-3">
-              
-                <div class="list-group" id="sidebar">
-                  <a href="#about" class="list-group-item">About this Tutorial
-                  </a>
-                  <a href="#preview" class="list-group-item">Preview File
-                  </a>
-                  <a href="#count-lines" class="list-group-item">Count Lines
-                  </a>
-                  <a href="#col-names" class="list-group-item">Column Names
-                  </a>
-                  <a href="#stars" class="list-group-item">Star Ratings
-                  </a>
-                  <a href="#unique-users" class="list-group-item">Count Users
-                  </a>
-                  <a href="#top-10-users" class="list-group-item">Top 10 Users
-                  </a>
-                  <a href="#funniest-reviews" class="list-group-item">Funniest Reviews
-                  </a>
-                  <a href="#funny-delicious" class="list-group-item">Funny & Delicious
-                  </a>
-                  <a href="#sed-replace" class="list-group-item">Replacing with sed
-                  </a>
-                  <a href="#grep-steak" class="list-group-item">Grep steak reviews
-                  </a>
-                  <a href="#omg-grep" class="list-group-item">OMG grep
-                  </a>
-                  <a href="#omg-awk" class="list-group-item">OMG awk
-                  </a>
-                  <a href="#awk-subset" class="list-group-item">Subsetting with awk
-                  </a>
-                </div>
-              
-          </div>  
-          <div class="col-md-9">
-                <!-- ############################### ABOUT ###############################-->
-                <h2 id="about">About this Tutorial</h2>
-                <p>The purpose of this tutorial is to use some basic UNIX commands to explore the Yelp Academic dataset, which contains business reviews collected over multiple years in Phoenix, AZ. You can follow along with the questions in your shell, and play around with them to obtain different outputs. You can obtain the data set... TBD.</p>
-
-                <hr class="col-md-12">
-                <!-- ############################### PREVIEW ###############################-->
-                <h2 id="preview">Preview your file</h2>
-                <p>Use <code>less</code> to view some of the data file.</p>
-
-                <p><i>Hint</i>: navigation works just like on the man pages: spacebar to page down, b to page up, arrows to move one line up/down/left/right)</p>
-
-                <pre> <code>less yelp_reviews.txt</code></pre>
-                <samp>business_id|date|review_id|stars|text|type|user_id|votes.cool|votes.funny|votes.useful
-                9yKzy9PApeiPPOUJEtnvkg|2011-01-26|fWKvX83p0-ka4JS3dc6E5A|5.0|"My wife took me here on my birthday for breakfast and it was excellent. The weather was perfect which made sitting outside overlooking their grounds an absolute pleasure. Our waitress was excellent and our food arrived quickly on the semi-busy Saturday morning. It looked like the place fills up pretty quickly so the earlier you get here the better. Do yourself a favor and get their Bloody Mary. It was phenomenal and simply the best I've ever had. I'm pretty sure they only use ingredients from their garden and blend them fresh when you order it. It was amazing. While EVERYTHING on the menu looks excellent, I had the white truffle scrambled eggs vegetable skillet and it was tasty and delicious. It came with 2 pieces of their griddled bread with was amazing and it absolutely made the meal complete. It was the best ""toast"" I've ever had. Anyway, I can't wait to go back!"|review|rLtl8ZkDX5vH5nAx9C3q5Q|2.0|0.0|5.0
-                ZRJwVLyzEJq1VAihDhYiow|2011-07-27|IjZ33sJrzXqU-0X6U8NwyA|5.0|"I have no idea why some people give bad reviews about this place. It goes to show you<br>...</samp>
-              
-                <hr class="col-md-12">
-                <!-- ############################### COUNT LINES ###############################-->
-                <h2 id="count-lines">Count lines</h2>
-                <p>How many lines are in the file? We can find out with the <code>wc</code> (word count) command, using the <code>-l</code> (lines) option.
-                </p>
-
-                <pre> <code>wc -l yelp_reviews.txt</code></pre>
-                <samp>220,001 yelp_reviews.txt</samp>
-                <br><br><br>
-
-                <p>Note that using <code>wc</code> without the <code>-l</code> option will return three values: the number of <b>lines</b>, <b>words</b> (split at white space characters), and <b>characters</b>.</p>
-                <pre> <code>wc yelp_reviews</b>.txt</code></pre>
-                <samp> 220001 28723335 177604873 yelp_reviews.txt</samp>
-
-                <hr class="col-md-12">
-        
-                <!-- ############################### COLUMN NAMES ###############################-->
-                <h2 id="col-names">Column names</h2>
-                <p>What are the column names for this file? Let's look at the first row. The <code>head</code> command will print the first few lines of the file. The <code>-1</code> option will give just the first row.
-                </p>
-
-                <pre> <code>head -1 yelp_reviews.txt</code></pre>
-                <samp>business_id|date|review_id|stars|text|type|user_id|votes.cool|votes.funny|votes.useful</samp>
-                <br><br><br>
-
-
-                <p>You will need to reference these columns by their column number in later comands, so it is useful to view the names along with their column number. </p>
-                <p> We can use the <code>tr</code> command (translate) to replace the pipe character with a new line, and then print this output with each item enumerated, using the <code>-n</code> option of <code>cat</code>.
-                <pre> <code>head -1 yelp_reviews.txt | tr '|' '\n' | cat -n</code></pre>
-                <samp>
-                  1  business_id <br>
-                  2  date <br>
-                  3  review_id <br>
-                  4  stars <br>
-                  5  text <br>
-                  6  type <br>
-                  7  user_id <br>
-                  8  votes.cool <br>
-                  9  votes.funny <br>
-                  10  votes.useful <br>
-                </samp>
-
-
-                <hr class="col-md-12">
-
-                <!-- ############################### STARS ###############################-->
-                <h2 id="stars">Star ratings</h2>
-                <p>Are the star ratings all whole numbers? Let's check.</p>
-                <p>We know that stars is the 4th column. By using the <code>cut</code> command, we can pull out the stars column.</p>
-                <p>Our file delimiter here is a pipe character, so we specify the cut delimiter option as <code>-d\|</code>. Since the pipe has a special meaning in the command line, we must escape it with a backslash.</p>
-
-                <p>The field we want to select is stars, which is the 4th column. Unix indexes columns numerically (starting with 1), so we specify <code>-f4</code> to select the 4th column.</p>
-
-                <p><b>Now we are ready to find the unique values!</b> To do this we use the <code>uniq</code> command, which takes sorted data. (Note that  <code>sort | uniq</code> is equivalent to <code>sort -u</code>.)
-                </p>
-
-                <pre> <code>cut -d\| -f4 yelp_reviews.txt | sort | uniq</code></pre>
-                <samp>
-                    1.0 <br>
-                    2.0 <br>
-                    3.0 <br>
-                    4.0 <br>
-                    5.0 <br>
-                    stars</samp>
-                  <br><br><br>
-                <p>Notice that the value from row 1 (the column header) is returned as one of the unique values. Before sorting, <code>tail + 2</code> will filter your selection to only include rows 2 to the end.</p>
-                <pre> <code>cut -d\| -f4 yelp_reviews.txt | tail +2 | sort | uniq</code></pre>
-                <samp>
-                    1.0 <br>
-                    2.0 <br>
-                    3.0 <br>
-                    4.0 <br>
-                    5.0 </samp>
-
-
-                <hr class="col-md-12">
-
-                <!-- ############################### UNIQUE USERS ###############################-->
-                <h2 id="unique-users">Count Users</h2>
-                <p>How many unique users have left reviews? We can use <code>cut</code> to select the user column, <code>uniq</code> to get the unique users, and <code>wc -l</code> to get a count of those lines.
-                </p>
-
-                <pre> <code>cut -d\| -f7 yelp_reviews.txt | tail +2 | sort | uniq | wc -l</code></pre>
-                <samp>44,993</samp>
-
-
-                <hr class="col-md-12">                        
-
-                <!-- ############################### TOP 10 USERS ###############################-->
-                <h2 id="top-10-users">Top 10 Users</h2>
-                <p>Who are the top 10 users who have written the most reviews, and how many did they write? From the previous example, we can use the <code>uniq -c</code> option to counts of how many times each duplicate user id is seen. We can then pipe the results to <code>sort -r</code> to sort the counts in descending order, and use <code>head -10</code> to view the top 10. 
-                </p>
-
-                <pre> <code>cut -d\| -f7 yelp_reviews.txt | tail +2 | sort | uniq -c | sort -r | head -10</code></pre>
-                <samp>
-                  560 fczQCSmaWF78toLEmb0Zsw<br>
-                  479 90a6z--_CUrl84aCzZyPsg<br>
-                  451 0CMz8YaO3f8xu4KqQgKb9Q<br>
-                  425 4ozupHULqGyO42s3zNUzOQ<br>
-                  371 joIzw_aUiNvBTuGoytrH7g<br>
-                  356 0bNXP9quoJEgyVZu9ipGgQ<br>
-                  353 JffajLV-Dnn-eGYgdXDxFg<br>
-                  317 _PzSNcfrCjeBxSLXRoMmgQ<br>
-                  316 ikm0UCahtK34LbLCEw4YTw<br>
-                  315 3gIfcQq5KxAegwCPXc83cQ
-                </samp>
-
-                <hr class="col-md-12">                        
-
-                <!-- ############################## FUNNIEST REVIEWS ###############################-->
-                <h2 id="funniest-reviews">Funniest Reviews</h2>
-                <p>We have used the <code>sort</code> command as an input to the <code>uniq</code> command, but it can be useful on its own as well.</p> 
-
-                <p>Let's use it to find the <b>funniest reviews</b> as voted by yelp users. Since <code>sort</code> will now be acting on data with more than one column, we need to use the <code>-t</code> option to specify the delimiter.</p> 
-
-                <p>The <code>-k</code> option lets us specify which field to sort by.<br> 
-                  The <code>-n</code> option is used to sort <b>numbers</b>.<br> 
-                  The <code>-r</code> option <b>reverses</b> the sort to be from highest to lowest. Below, we'll look at the ten funniest reviews.
-                </p>
-
-                <pre> <code>sort -t\| -k9 -n -r yelp_reviews.txt | head -10</code></pre>
-                <samp>
-                  ke0BMVeaQf3lvwSzm-fPyA|2012-02-19|e6s2GLDejbypjKZD8Xk9Hg|1.0|This specific Cheba Hut was not sanitary and reeked. After I ordered my food, I was shocked to see a staff member smoking a cigarette behind the counter! I'll never go back.|review|73eZuIuXVD5sif7GrIMfuQ|2.0|70.0|6.0<br>
-                  CvRGjwCsrQs1DYYL3z8R7g|2008-02-28|2FgG1U24AH0KLBj4l16bLg|1.0|"I would rather be a freegan and dumpster dive then ever swing into the Rainforest Cafe again. I would rather eat..... ....at the worst Applebee's in America ....vending machine food ....my own flesh Now, Rainforest could be fun if you were 12 and drunk. Then the overly fried foods and canned sauces could cure your munchies. I would have rather had Totino's pizza rolls than the nasty appetizer combo we shared. The plant and animal filled space could really use the services of Merry Maids. Really. How do you clean all that crap? The rainforest ""thunderstorm"" is as exciting as the one in the produce section at Safeway. So if you have kids who like to drink, you might have a good time here. Otherwise I say stay home and check your trash like a good freegan."|review|C8ZTiwa7qWoPSMIivTeSfw|36.0|70.0|29.0<br>...
-                </samp>
-
-                <hr class="col-md-12">                        
-
-                <!-- ############################### FUNNY DELICIOUS ###############################-->
-                <h2 id="funny-delicious">Funny & Delicious</h2>
-                <p>You can also use <code>sort</code> to sort <b>multiple columns</b>, in order to break ties. Let's find the <b>funniest five-star reviews</b>!</p>
-                <p>In this example, our primary sort will be on the stars column, so we'll specify this field first in the command. Note that we now specify two <code>-k</code> options, and the format changes such that the <code>-r</code> and <code>-n</code> options get concatenated with the field number.</p>
-
-                <pre> <code>sort -t\| -k 4n -k 9rn yelp_reviews.txt | head -10</code></pre>
-                <samp>
-                business_id|date|review_id|stars|text|type|user_id|votes.cool|votes.funny|votes.useful<br>
-                CvRGjwCsrQs1DYYL3z8R7g|2008-02-28|2FgG1U24AH0KLBj4l16bLg|1.0|"I would rather be a freegan and dumpster dive then ever swing into the Rainforest Cafe again. I would rather eat..... ....at the worst Applebee's in America ....vending machine food ....my own flesh Now, Rainforest could be fun if you were 12 and drunk. Then the overly fried foods and canned sauces could cure your munchies. I would have rather had Totino's pizza rolls than the nasty appetizer combo we shared. The plant and animal filled space could really use the services of Merry Maids. Really. How do you clean all that crap? The rainforest ""thunderstorm"" is as exciting as the one in the produce section at Safeway. So if you have kids who like to drink, you might have a good time here. Otherwise I say stay home and check your trash like a good freegan."|review|C8ZTiwa7qWoPSMIivTeSfw|36.0|70.0|29.0<br>...
-
-                </samp>
-
-                <!-- ############################## SED REPLACEMENT ###############################-->
-                <h2 id="sed-replace">Replacing with sed</h2>
-                <p>Let's say we want all of the column names to use underscores instead of periods to separate words. We can use <code>sed</code> to make this replacement.</p>
-                
-                <p>Sed expressions are enclosed in single quotes. Our sed expression wills start with a <code>1</code>, since we only want to perform substitution of the first line (the header).</p>
-
-                <p>Then, we'll use the <b>s/to_replace/replace_with</b> syntax to replace the periods (which need to be escaped), since the period is a special character in regular expressions, with an <code>_</code>. Finally, the substitution expression needs to end with a <code>g</code>, to specify that we want to replace all occurrences of <code>.</code> with <code>_</code>. To just look at the results, rather than write to a file, 
-                </p>
-
-                <pre> <code>sed '1s/\./_/g' yelp_reviews.txt | less</code></pre>
-                <samp>
-                business_id|date|review_id|stars|text|type|user_id|votes_cool|votes_funny|votes_useful<br>
-                9yKzy9PApeiPPOUJEtnvkg|2011-01-26|fWKvX83p0-ka4JS3dc6E5A|5.0|"My wife took me here on my birthday for breakfast and it was excellent. The weather was perfect which made sitting outside overlooking their grounds an absolute pleasure. Our waitress was excellent and our food arrived quickly<br>...
-                </samp>
-                <br><br>
-
-                <p>If we wanted to output the changed header and the unchanged data to a file, we'd replace the | less with a > filename.txt. If we did <code>sed '1s/\./_/g' yelp_reviews.txt > yelp_reviews.txt</code>, we'd overwrite the original file, so use sed with care!</p>
-
-                <hr class="col-md-12">                        
-
-                <!-- ############################### GREP STEAK ###############################-->
-                <h2 id="grep-steak">Grep steak reviews</h2>
-                <p>How many reviews mention the word steak? We can use grep to search for "steak", with the <code>-c</code> option to output a <b>count</b> (without <code>-c</code>, your console will print all of the lines that contain steak!).</p>
-
-                <pre> <code>grep -c "steak" yelp_reviews.txt</code></pre>
-                <samp>7139</samp>
-                <br><br><br>
-
-                <p>If we also want to make our search <b>case-insenitive</b> (so we can also match STEAK and Steak), we can use the <code>-i</code> option of grep.</p>
-
-                <pre> <code>grep -ci "steak" yelp_reviews.txt</code></pre>
-                <samp>8031</samp>
-                <br><br><br>
-
-                <p>The above grep searches will also match things like <b>cheesesteak</b>. If we just want to focus on the steak, we can use grep's <code>-w</code> option, which requires steak to be the whole word.</p>
-
-                <pre> <code>grep -ciw "steak" yelp_reviews.txt</code></pre>
-                <samp>6622</samp>
-                <br><br><br>
-
-                <p>However, with the above, we lose the ability to find "steaks". To match both steak and steaks as whole words, we can use the <code>?</code> regular expression to match an optional ending s. By default, <code>grep</code> assumes the quoted pattern that you provide is a <i>basic regular expression</i>. In basic regular expressions, the <code>?</code> needs to be escaped so it is not interpreted as a literal question mark in the phrase.</p>
-
-                <pre> <code>grep -ciw "steaks\?" yelp_reviews.txt</code></pre>
-                <samp>7263</samp>
-                <br><br><br>
-
-                <p>If we want our downstream analysis to be steak-centric, we could use grep to <b>output our results to a file</b>. Remove to remove the <code>-c</code> option, so that you get the lines, and not just the count of lines</p>
-
-                <pre> <code>grep -iw "steaks\?" yelp_reviews.txt > steak_reviews.txt</code></pre>
-
-                <hr class="col-md-12">                        
-
-
-                <!-- ############################### OMG grep ###############################-->
-                <h2 id="omg-grep">OMG grep</h2>
-                <p>Let's say we wanted to find reviews written with strong emotion. Let's find all of the reviews that begin with OMG (in all caps, as a whole word). To find OMG at the beginning of the review column, we need to use <code>cut</code> to extract the 5th column, then use <code>grep</code> with the <code>^</code> regular expression to match the beginning of the line.</p>
-
-                <pre> <code>cut -d\| -f5 yelp_reviews.txt | grep -w "^OMG" | less</code></pre>
-                <br>
-                <samp>    
-                  OMG try their breakfast burritos!!!! Habanero's has good, cheap, fast Mexican food.<br>
-                  OMG! what is the rave about? this place is disgusting! it's dirty and the food is not worth it! i came here with my family and we each order a little bit of everything that is suppose to be good and popular there. unfortunately everything is bad. i walked by the waiters and they were all cursing really loud in vietnamese to each other. the table is icky and it smell like my cooked up oil . ick! go to Pho ao sen instead at least it's clean.<br>
-                  OMG this place is good. Great Italian beef. Great burgers. FRY SAUCE. I don't know how they're pulling off such good food with what they have but it's awesome and I will be eating here if I'm in the area and hungry.<br>...
-               </samp>
-
-                <br><br>
-
-                <p>We can use grep <code>-wc</code> to get the count of lines beginning with OMG</p>
-                <pre> <code>cut -d\| -f5 yelp_reviews.txt | grep -wc "^OMG"</code></pre>
-                <samp>238</samp>
-
-                <hr class="col-md-12">   
-
-                <!-- ############################### OMG AWK ###############################-->
-                <h2 id="omg-awk">OMG awk</h2>
-                <p>What is we want to write all of the OMG records to a file?</p>
-
-                <p>We run into a complication here, because we had to extract the review column in order to find the reviews that begin with OMG. <b>Now how do we get all of the other columns back?</b></p> 
-
-                <p>Enter the <code>awk</code> command. With <code>awk</code>, we can apply regular expressions to particular columns. The <code>-F</code> option specifies the delimiter for the file. Within the seleciton criteria, the <code>$5</code> selects the 5th column, the <code>~</code> is used for matching a regular expression (to match everything but an expression, use <code>!~</code>) and the part between the <code>/ /</code> is the regular expression we want to match. </p>
-
-                <pre> <code>awk -F\| '$5 ~ /^OMG/' yelp_reviews.txt | less</code></pre>
-                <samp>kqGbGsG2p6Y3vkplCKyE9g|2010-05-05|VLzod0cVgMuY4eR1NdRC5Q|5.0|OMG try their breakfast burritos!!!! Habanero's has good, cheap, fast Mexican food.|review|rC11FhTVhZsC4KXHvXelQg|1.0|0.0|1.0<br>
-                Zy2vca7i9QFGRKa4m0C__A|2009-07-20|WYyYNtrjLOHT2aMXr9wVnw|1.0|OMG! what is the rave about? this place is disgusting! it's dirty and the food is not worth it! i came here with my family and we each order a little bit of everything that is suppose to be good and popular there. unfortunately everything is bad. i walked by the waiters and they were all cursing really loud in vietnamese to each other. the table is icky and it smell like my cooked up oil . ick! go to Pho ao sen instead at least it's clean.|review|wh5mqCxN7d1jlTQ4eIGmXQ|0.0|0.0|0.0<br>...
-                </samp>
-
-                <br><br>
-
-                <p>To write a file:</p>
-                <pre> <code>awk -F\| '$5 ~ /^OMG/' yelp_reviews.txt > omg_files.txt</code></pre>
-
-
-                <hr class="col-md-12">   
-
-                <!-- ############################### GREP STEAK ###############################-->
-                <h2 id="awk-subset">Subsetting with awk</h2>
-                <p>Now that we've introduced <code>awk</code>, let's use it for numerical subsetting.</p>
-                <p>What if we want pull out the reviews that have at least 50 useful votes, and look at only the votes.useful and text columns?</p>
-
-                <pre> <code>awk -F\| '$10>=50 {print $10,$5}' yelp_reviews.txt</code></pre>
-                <samp>votes.useful text<br>
-                76.0 Love this place! Amazing Happy Hour Specials!!<br>
-                57.0 Absolutely delicious Mexican tamales!! All 4 flavors were incredible. Living in LA and at times Mexico, I know a good authentic tamale and this is definitely it.<br>
-                68.0 The orange chicken is great. This place is always packed.<br>
-                120.0 This was the 4th service I tried. The other pet sitters I used didn't follow my instructions and some wouldn't even return my calls when I checked to see how my pets were doing. I can't say enough about Amanda's Pet Sitting! Amanda followed my instructions perfectly and was always in touch with me and returned my phone calls right away. I've used her services for years now and I'm always happy with her service. I recommend Amanda to everyone I know that has pets. <br>...</samp>
-                
-                <br><br>
-                <p>You'll notice that the output is formatted such that there is space between column 10 and column 5. If we wanted to use the <code>|</code> delimiter, we would do it like so:</p>
-
-                <pre> <code>awk -F\| '$10>=50 {print $10"|"$5}' yelp_reviews.txt</code></pre>
-                <samp>votes.useful|text<br>
-                76.0|Love this place! Amazing Happy Hour Specials!!<br>
-                57.0|Absolutely delicious Mexican tamales!! All 4 flavors were incredible. Living in LA and at times Mexico, I know a good authentic tamale and this is definitely it.<br>
-                68.0|The orange chicken is great. This place is always packed.<br>...</samp>
-
-                <br><br>
-
-                <p>From the last example, you can see how you can use <code>awk</code> to extract certain columns subset data, and even rearrange columns. We used the cut command earlier to extract certain fields, but cut cannot rearrange columns.</p>
-
-                <p>The above examples only touch on the very basics of <code>awk</code>. Awk can be combined with shell scripting for numerical processing functionality.</p>
-
-
-                <hr class="col-md-12">  
-                
-          </div> 
+<div class="row">
+<div class="col-md-3">
+  <div class="sidebar-nav">
+    <div class="navbar navbar-default sidebar" role="navigation">
+      <ul class="nav nav-tabs sidenav" role="navigation">
+        <li><a href="#preview" class="list-group-item page-scroll">Preview File
+        </a></li>
+        <li><a href="#count-lines" class="list-group-item page-scroll">Count
+          Lines
+        </a></li>
+        <li><a href="#col-names" class="list-group-item page-scroll">Column
+          Names
+        </a></li>
+        <li><a href="#stars" class="list-group-item">Star Ratings
+        </a></li>
+        <li><a href="#unique-users" class="list-group-item">Count Users
+        </a></li>
+        <li><a href="#top-10-users" class="list-group-item">Top 10 Users
+        </a></li>
+        <li><a href="#funniest-reviews" class="list-group-item">Funniest
+          Reviews
+        </a></li>
+        <li><a href="#funny-delicious" class="list-group-item">Funny &
+          Delicious
+        </a></li>
+        <li><a href="#sed-replace" class="list-group-item">Replacing with sed
+        </a></li>
+        <li><a href="#grep-steak" class="list-group-item">Grep steak reviews
+        </a></li>
+        <li><a href="#omg-grep" class="list-group-item">OMG grep
+        </a></li>
+        <li><a href="#omg-awk" class="list-group-item">OMG awk
+        </a></li>
+        <li><a href="#awk-subset" class="list-group-item">Subsetting with awk
+        </a></li>
+      </ul>
     </div>
+  </div>
+</div>
+
+<div class="col-md-9">
+<!-- ############################### ABOUT ###############################-->
+<h2 class="about">About this Tutorial</h2>
+
+<p class="intro-text">In this tutorial, we'll use some basic UNIX commands to explore
+  the Yelp Academic dataset, which contains business reviews collected over
+  multiple years in Phoenix, AZ. You can follow along with the questions in
+  your shell, and play around with them to obtain different outputs. You can
+  obtain the data set... TBD.</p>
+
+<hr class="col-md-12">
+<!-- ############################### PREVIEW ###############################-->
+<h2 id="preview">Preview your file</h2>
+
+<p>Use <code>less</code> to view some of the data file.</p>
+
+<p><i>Hint</i>: navigation works just like on the man pages: spacebar to page
+  down, b to page up, arrows to move one line up/down/left/right)</p>
+
+<pre> <code>less yelp_reviews.txt</code></pre>
+<samp>business_id|date|review_id|stars|text|type|user_id|votes.cool|votes.funny|votes.useful
+  9yKzy9PApeiPPOUJEtnvkg|2011-01-26|fWKvX83p0-ka4JS3dc6E5A|5.0|"My wife took me
+  here on my birthday for breakfast and it was excellent. The weather was
+  perfect which made sitting outside overlooking their grounds an absolute
+  pleasure. Our waitress was excellent and our food arrived quickly on the
+  semi-busy Saturday morning. It looked like the place fills up pretty quickly
+  so the earlier you get here the better. Do yourself a favor and get their
+  Bloody Mary. It was phenomenal and simply the best I've ever had. I'm pretty
+  sure they only use ingredients from their garden and blend them fresh when
+  you order it. It was amazing. While EVERYTHING on the menu looks excellent, I
+  had the white truffle scrambled eggs vegetable skillet and it was tasty and
+  delicious. It came with 2 pieces of their griddled bread with was amazing and
+  it absolutely made the meal complete. It was the best ""toast"" I've ever
+  had. Anyway, I can't wait to go
+  back!"|review|rLtl8ZkDX5vH5nAx9C3q5Q|2.0|0.0|5.0
+  ZRJwVLyzEJq1VAihDhYiow|2011-07-27|IjZ33sJrzXqU-0X6U8NwyA|5.0|"I have no idea
+  why some people give bad reviews about this place. It goes to show you<br>...</samp>
+
+<hr class="col-md-12">
+<!-- ############################### COUNT LINES ###############################-->
+<h2 id="count-lines">Count lines</h2>
+
+<p>How many lines are in the file? We can find out with the <code>wc</code>
+  (word count) command, using the <code>-l</code> (lines) option.
+</p>
+
+<pre> <code>wc -l yelp_reviews.txt</code></pre>
+<samp>220,001 yelp_reviews.txt</samp>
+<br><br><br>
+
+<p>Note that using <code>wc</code> without the <code>-l</code> option will
+  return three values: the number of <b>lines</b>, <b>words</b> (split at white
+  space characters), and <b>characters</b>.</p>
+<pre> <code>wc yelp_reviews</b>.txt</code></pre>
+<samp> 220001 28723335 177604873 yelp_reviews.txt</samp>
+
+<hr class="col-md-12">
+
+<!-- ############################### COLUMN NAMES ###############################-->
+<h2 id="col-names">Column names</h2>
+
+<p>What are the column names for this file? Let's look at the first row. The
+  <code>head</code> command will print the first few lines of the file. The
+  <code>-1</code> option will give just the first row.
+</p>
+
+<pre> <code>head -1 yelp_reviews.txt</code></pre>
+<samp>business_id|date|review_id|stars|text|type|user_id|votes.cool|votes.funny|votes.useful</samp>
+<br><br><br>
+
+
+<p>You will need to reference these columns by their column number in later
+  comands, so it is useful to view the names along with their column
+  number. </p>
+
+<p> We can use the <code>tr</code> command (translate) to replace the pipe
+  character with a new line, and then print this output with each item
+  enumerated, using the <code>-n</code> option of <code>cat</code>.
+<pre> <code>head -1 yelp_reviews.txt | tr '|' '\n' | cat -n</code></pre>
+<samp>
+  1 business_id <br>
+  2 date <br>
+  3 review_id <br>
+  4 stars <br>
+  5 text <br>
+  6 type <br>
+  7 user_id <br>
+  8 votes.cool <br>
+  9 votes.funny <br>
+  10 votes.useful <br>
+</samp>
+
+
+<hr class="col-md-12">
+
+<!-- ############################### STARS ###############################-->
+<h2 id="stars">Star ratings</h2>
+
+<p>Are the star ratings all whole numbers? Let's check.</p>
+
+<p>We know that stars is the 4th column. By using the <code>cut</code> command,
+  we can pull out the stars column.</p>
+
+<p>Our file delimiter here is a pipe character, so we specify the cut delimiter
+  option as <code>-d\|</code>. Since the pipe has a special meaning in the
+  command line, we must escape it with a backslash.</p>
+
+<p>The field we want to select is stars, which is the 4th column. Unix indexes
+  columns numerically (starting with 1), so we specify <code>-f4</code> to
+  select the 4th column.</p>
+
+<p><b>Now we are ready to find the unique values!</b> To do this we use the
+  <code>uniq</code> command, which takes sorted data. (Note that <code>sort |
+    uniq</code> is equivalent to <code>sort -u</code>.)
+</p>
+
+<pre> <code>cut -d\| -f4 yelp_reviews.txt | sort | uniq</code></pre>
+<samp>
+  1.0 <br>
+  2.0 <br>
+  3.0 <br>
+  4.0 <br>
+  5.0 <br>
+  stars</samp>
+<br><br><br>
+
+<p>Notice that the value from row 1 (the column header) is returned as one of
+  the unique values. Before sorting, <code>tail + 2</code> will filter your
+  selection to only include rows 2 to the end.</p>
+<pre> <code>cut -d\| -f4 yelp_reviews.txt | tail +2 | sort | uniq</code></pre>
+<samp>
+  1.0 <br>
+  2.0 <br>
+  3.0 <br>
+  4.0 <br>
+  5.0 </samp>
+
+
+<hr class="col-md-12">
+
+<!-- ############################### UNIQUE USERS ###############################-->
+<h2 id="unique-users">Count Users</h2>
+
+<p>How many unique users have left reviews? We can use <code>cut</code> to
+  select the user column, <code>uniq</code> to get the unique users, and <code>wc
+    -l</code> to get a count of those lines.
+</p>
+
+<pre> <code>cut -d\| -f7 yelp_reviews.txt | tail +2 | sort | uniq | wc -l</code></pre>
+<samp>44,993</samp>
+
+
+<hr class="col-md-12">
+
+<!-- ############################### TOP 10 USERS ###############################-->
+<h2 id="top-10-users">Top 10 Users</h2>
+
+<p>Who are the top 10 users who have written the most reviews, and how many did
+  they write? From the previous example, we can use the <code>uniq -c</code>
+  option to counts of how many times each duplicate user id is seen. We can
+  then pipe the results to <code>sort -r</code> to sort the counts in
+  descending order, and use <code>head -10</code> to view the top 10.
+</p>
+
+<pre> <code>cut -d\| -f7 yelp_reviews.txt | tail +2 | sort | uniq -c | sort -r | head -10</code></pre>
+<samp>
+  560 fczQCSmaWF78toLEmb0Zsw<br>
+  479 90a6z--_CUrl84aCzZyPsg<br>
+  451 0CMz8YaO3f8xu4KqQgKb9Q<br>
+  425 4ozupHULqGyO42s3zNUzOQ<br>
+  371 joIzw_aUiNvBTuGoytrH7g<br>
+  356 0bNXP9quoJEgyVZu9ipGgQ<br>
+  353 JffajLV-Dnn-eGYgdXDxFg<br>
+  317 _PzSNcfrCjeBxSLXRoMmgQ<br>
+  316 ikm0UCahtK34LbLCEw4YTw<br>
+  315 3gIfcQq5KxAegwCPXc83cQ
+</samp>
+
+<hr class="col-md-12">
+
+<!-- ############################## FUNNIEST REVIEWS ###############################-->
+<h2 id="funniest-reviews">Funniest Reviews</h2>
+
+<p>We have used the <code>sort</code> command as an input to the
+  <code>uniq</code> command, but it can be useful on its own as well.</p>
+
+<p>Let's use it to find the <b>funniest reviews</b> as voted by yelp users.
+  Since <code>sort</code> will now be acting on data with more than one column,
+  we need to use the <code>-t</code> option to specify the delimiter.</p>
+
+<p>The <code>-k</code> option lets us specify which field to sort by.<br>
+  The <code>-n</code> option is used to sort <b>numbers</b>.<br>
+  The <code>-r</code> option <b>reverses</b> the sort to be from highest to
+  lowest. Below, we'll look at the ten funniest reviews.
+</p>
+
+<pre> <code>sort -t\| -k9 -n -r yelp_reviews.txt | head -10</code></pre>
+<samp>
+  ke0BMVeaQf3lvwSzm-fPyA|2012-02-19|e6s2GLDejbypjKZD8Xk9Hg|1.0|This specific
+  Cheba Hut was not sanitary and reeked. After I ordered my food, I was shocked
+  to see a staff member smoking a cigarette behind the counter! I'll never go
+  back.|review|73eZuIuXVD5sif7GrIMfuQ|2.0|70.0|6.0<br>
+  CvRGjwCsrQs1DYYL3z8R7g|2008-02-28|2FgG1U24AH0KLBj4l16bLg|1.0|"I would rather
+  be a freegan and dumpster dive then ever swing into the Rainforest Cafe
+  again. I would rather eat..... ....at the worst Applebee's in America
+  ....vending machine food ....my own flesh Now, Rainforest could be fun if you
+  were 12 and drunk. Then the overly fried foods and canned sauces could cure
+  your munchies. I would have rather had Totino's pizza rolls than the nasty
+  appetizer combo we shared. The plant and animal filled space could really use
+  the services of Merry Maids. Really. How do you clean all that crap? The
+  rainforest ""thunderstorm"" is as exciting as the one in the produce section
+  at Safeway. So if you have kids who like to drink, you might have a good time
+  here. Otherwise I say stay home and check your trash like a good
+  freegan."|review|C8ZTiwa7qWoPSMIivTeSfw|36.0|70.0|29.0<br>...
+</samp>
+
+<hr class="col-md-12">
+
+<!-- ############################### FUNNY DELICIOUS ###############################-->
+<h2 id="funny-delicious">Funny & Delicious</h2>
+
+<p>You can also use <code>sort</code> to sort <b>multiple columns</b>, in order
+  to break ties. Let's find the <b>funniest five-star reviews</b>!</p>
+
+<p>In this example, our primary sort will be on the stars column, so we'll
+  specify this field first in the command. Note that we now specify two <code>-k</code>
+  options, and the format changes such that the <code>-r</code> and
+  <code>-n</code> options get concatenated with the field number.</p>
+
+<pre> <code>sort -t\| -k 4n -k 9rn yelp_reviews.txt | head -10</code></pre>
+<samp>
+  business_id|date|review_id|stars|text|type|user_id|votes.cool|votes.funny|votes.useful<br>
+  CvRGjwCsrQs1DYYL3z8R7g|2008-02-28|2FgG1U24AH0KLBj4l16bLg|1.0|"I would rather
+  be a freegan and dumpster dive then ever swing into the Rainforest Cafe
+  again. I would rather eat..... ....at the worst Applebee's in America
+  ....vending machine food ....my own flesh Now, Rainforest could be fun if you
+  were 12 and drunk. Then the overly fried foods and canned sauces could cure
+  your munchies. I would have rather had Totino's pizza rolls than the nasty
+  appetizer combo we shared. The plant and animal filled space could really use
+  the services of Merry Maids. Really. How do you clean all that crap? The
+  rainforest ""thunderstorm"" is as exciting as the one in the produce section
+  at Safeway. So if you have kids who like to drink, you might have a good time
+  here. Otherwise I say stay home and check your trash like a good
+  freegan."|review|C8ZTiwa7qWoPSMIivTeSfw|36.0|70.0|29.0<br>...
+
+</samp>
+<hr class="col-md-12">
+
+
+<!-- ############################## SED REPLACEMENT ###############################-->
+<h2 id="sed-replace">Replacing with sed</h2>
+
+<p>Let's say we want all of the column names to use underscores instead of
+  periods to separate words. We can use <code>sed</code> to make this
+  replacement.</p>
+
+<p>Sed expressions are enclosed in single quotes. Our sed expression wills
+  start with a <code>1</code>, since we only want to perform substitution of
+  the first line (the header).</p>
+
+<p>Then, we'll use the <b>s/to_replace/replace_with</b> syntax to replace the
+  periods (which need to be escaped), since the period is a special character
+  in regular expressions, with an <code>_</code>. Finally, the substitution
+  expression needs to end with a <code>g</code>, to specify that we want to
+  replace all occurrences of <code>.</code> with <code>_</code>. To just look
+  at the results, rather than write to a file,
+</p>
+
+<pre> <code>sed '1s/\./_/g' yelp_reviews.txt | less</code></pre>
+<samp>
+  business_id|date|review_id|stars|text|type|user_id|votes_cool|votes_funny|votes_useful<br>
+  9yKzy9PApeiPPOUJEtnvkg|2011-01-26|fWKvX83p0-ka4JS3dc6E5A|5.0|"My wife took me
+  here on my birthday for breakfast and it was excellent. The weather was
+  perfect which made sitting outside overlooking their grounds an absolute
+  pleasure. Our waitress was excellent and our food arrived quickly<br>...
+</samp>
+<br><br>
+
+<p>If we wanted to output the changed header and the unchanged data to a file,
+  we'd replace the | less with a > filename.txt. If we did <code>sed
+    '1s/\./_/g' yelp_reviews.txt > yelp_reviews.txt</code>, we'd overwrite the
+  original file, so use sed with care!</p>
+
+<hr class="col-md-12">
+
+<!-- ############################### GREP STEAK ###############################-->
+<h2 id="grep-steak">Grep steak reviews</h2>
+
+<p>How many reviews mention the word steak? We can use grep to search for
+  "steak", with the <code>-c</code> option to output a <b>count</b> (without
+  <code>-c</code>, your console will print all of the lines that contain
+  steak!).</p>
+
+<pre> <code>grep -c "steak" yelp_reviews.txt</code></pre>
+<samp>7139</samp>
+<br><br><br>
+
+<p>If we also want to make our search <b>case-insenitive</b> (so we can also
+  match STEAK and Steak), we can use the <code>-i</code> option of grep.</p>
+
+<pre> <code>grep -ci "steak" yelp_reviews.txt</code></pre>
+<samp>8031</samp>
+<br><br><br>
+
+<p>The above grep searches will also match things like <b>cheesesteak</b>. If
+  we just want to focus on the steak, we can use grep's <code>-w</code> option,
+  which requires steak to be the whole word.</p>
+
+<pre> <code>grep -ciw "steak" yelp_reviews.txt</code></pre>
+<samp>6622</samp>
+<br><br><br>
+
+<p>However, with the above, we lose the ability to find "steaks". To match both
+  steak and steaks as whole words, we can use the <code>?</code> regular
+  expression to match an optional ending s. By default, <code>grep</code>
+  assumes the quoted pattern that you provide is a <i>basic regular
+    expression</i>. In basic regular expressions, the <code>?</code> needs to
+  be escaped so it is not interpreted as a literal question mark in the phrase.
+</p>
+
+<pre> <code>grep -ciw "steaks\?" yelp_reviews.txt</code></pre>
+<samp>7263</samp>
+<br><br><br>
+
+<p>If we want our downstream analysis to be steak-centric, we could use grep to
+  <b>output our results to a file</b>. Remove to remove the <code>-c</code>
+  option, so that you get the lines, and not just the count of lines</p>
+
+<pre> <code>grep -iw "steaks\?" yelp_reviews.txt >
+  steak_reviews.txt</code></pre>
+
+<hr class="col-md-12">
+
+
+<!-- ############################### OMG grep ###############################-->
+<h2 id="omg-grep">OMG grep</h2>
+
+<p>Let's say we wanted to find reviews written with strong emotion. Let's find
+  all of the reviews that begin with OMG (in all caps, as a whole word). To
+  find OMG at the beginning of the review column, we need to use
+  <code>cut</code> to extract the 5th column, then use <code>grep</code> with
+  the <code>^</code> regular expression to match the beginning of the line.</p>
+
+<pre> <code>cut -d\| -f5 yelp_reviews.txt | grep -w "^OMG" | less</code></pre>
+<br>
+<samp>
+  OMG try their breakfast burritos!!!! Habanero's has good, cheap, fast Mexican
+  food.<br>
+  OMG! what is the rave about? this place is disgusting! it's dirty and the
+  food is not worth it! i came here with my family and we each order a little
+  bit of everything that is suppose to be good and popular there. unfortunately
+  everything is bad. i walked by the waiters and they were all cursing really
+  loud in vietnamese to each other. the table is icky and it smell like my
+  cooked up oil . ick! go to Pho ao sen instead at least it's clean.<br>
+  OMG this place is good. Great Italian beef. Great burgers. FRY SAUCE. I don't
+  know how they're pulling off such good food with what they have but it's
+  awesome and I will be eating here if I'm in the area and hungry.<br>...
+</samp>
+
+<br><br>
+
+<p>We can use grep <code>-wc</code> to get the count of lines beginning with
+  OMG</p>
+<pre> <code>cut -d\| -f5 yelp_reviews.txt | grep -wc "^OMG"</code></pre>
+<samp>238</samp>
+
+<hr class="col-md-12">
+
+<!-- ############################### OMG AWK ###############################-->
+<h2 id="omg-awk">OMG awk</h2>
+
+<p>What is we want to write all of the OMG records to a file?</p>
+
+<p>We run into a complication here, because we had to extract the review column
+  in order to find the reviews that begin with OMG. <b>Now how do we get all of
+    the other columns back?</b></p>
+
+<p>Enter the <code>awk</code> command. With <code>awk</code>, we can apply
+  regular expressions to particular columns. The <code>-F</code> option
+  specifies the delimiter for the file. Within the seleciton criteria, the
+  <code>$5</code> selects the 5th column, the <code>~</code> is used for
+  matching a regular expression (to match everything but an expression, use
+  <code>!~</code>) and the part between the <code>/ /</code> is the regular
+  expression we want to match. </p>
+
+<pre> <code>awk -F\| '$5 ~ /^OMG/' yelp_reviews.txt | less</code></pre>
+<samp>kqGbGsG2p6Y3vkplCKyE9g|2010-05-05|VLzod0cVgMuY4eR1NdRC5Q|5.0|OMG try
+  their breakfast burritos!!!! Habanero's has good, cheap, fast Mexican
+  food.|review|rC11FhTVhZsC4KXHvXelQg|1.0|0.0|1.0<br>
+  Zy2vca7i9QFGRKa4m0C__A|2009-07-20|WYyYNtrjLOHT2aMXr9wVnw|1.0|OMG! what is the
+  rave about? this place is disgusting! it's dirty and the food is not worth
+  it! i came here with my family and we each order a little bit of everything
+  that is suppose to be good and popular there. unfortunately everything is
+  bad. i walked by the waiters and they were all cursing really loud in
+  vietnamese to each other. the table is icky and it smell like my cooked up
+  oil . ick! go to Pho ao sen instead at least it's
+  clean.|review|wh5mqCxN7d1jlTQ4eIGmXQ|0.0|0.0|0.0<br>...
+</samp>
+
+<br><br>
+
+<p>To write a file:</p>
+<pre> <code>awk -F\| '$5 ~ /^OMG/' yelp_reviews.txt > omg_files.txt</code></pre>
+
+
+<hr class="col-md-12">
+
+<!-- ############################### GREP STEAK ###############################-->
+<h2 id="awk-subset">Subsetting with awk</h2>
+
+<p>Now that we've introduced <code>awk</code>, let's use it for numerical
+  subsetting.</p>
+
+<p>What if we want pull out the reviews that have at least 50 useful votes, and
+  look at only the votes.useful and text columns?</p>
+
+<pre> <code>awk -F\| '$10>=50 {print $10,$5}' yelp_reviews.txt</code></pre>
+<samp>votes.useful text<br>
+  76.0 Love this place! Amazing Happy Hour Specials!!<br>
+  57.0 Absolutely delicious Mexican tamales!! All 4 flavors were incredible.
+  Living in LA and at times Mexico, I know a good authentic tamale and this is
+  definitely it.<br>
+  68.0 The orange chicken is great. This place is always packed.<br>
+  120.0 This was the 4th service I tried. The other pet sitters I used didn't
+  follow my instructions and some wouldn't even return my calls when I checked
+  to see how my pets were doing. I can't say enough about Amanda's Pet Sitting!
+  Amanda followed my instructions perfectly and was always in touch with me and
+  returned my phone calls right away. I've used her services for years now and
+  I'm always happy with her service. I recommend Amanda to everyone I know that
+  has pets. <br>...</samp>
+
+<br><br>
+
+<p>You'll notice that the output is formatted such that there is space between
+  column 10 and column 5. If we wanted to use the <code>|</code> delimiter, we
+  would do it like so:</p>
+
+<pre> <code>awk -F\| '$10>=50 {print $10"|"$5}' yelp_reviews.txt</code></pre>
+<samp>votes.useful|text<br>
+  76.0|Love this place! Amazing Happy Hour Specials!!<br>
+  57.0|Absolutely delicious Mexican tamales!! All 4 flavors were incredible.
+  Living in LA and at times Mexico, I know a good authentic tamale and this is
+  definitely it.<br>
+  68.0|The orange chicken is great. This place is always packed.<br>...</samp>
+
+<br><br>
+
+<p>From the last example, you can see how you can use <code>awk</code> to
+  extract certain columns subset data, and even rearrange columns. We used the
+  cut command earlier to extract certain fields, but cut cannot rearrange
+  columns.</p>
+
+<p>The above examples only touch on the very basics of <code>awk</code>. Awk
+  can be combined with shell scripting for numerical processing functionality.
+</p>
+
+
+<hr class="col-md-12">
+
+</div>
+</div>
 </div>
 
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    // <script src="js/prism.js"></script>
-    <script src="js/script.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/script.js"></script>
 
-  </body>
+</body>
 </html>

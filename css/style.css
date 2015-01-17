@@ -4,21 +4,113 @@
 	width:auto;
 }
 
-header {
-	height:150px;
+.navbar-custom {
+    margin-bottom: 0;
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    background-color: white;
 }
 
-@media (min-width: 979px) {
-  #sidebar.affix-top {
+.navbar-custom .navbar-brand {
+  font-weight: 450;
+  font-size: 18pt;
+}
+
+.navbar-custom .navbar-brand:focus {
+    outline: 0;
+}
+
+.navbar-custom .navbar-brand .navbar-toggle {
+    padding: 4px 6px;
+    font-size: 18px;
+    color: black; 
+}
+
+.navbar-custom .navbar-brand .navbar-toggle:focus,
+.navbar-custom .navbar-brand .navbar-toggle:active {
+    outline: 0;
+    background-color: #F2F2F2;
+}
+
+.navbar-custom a {
+    color: black;
+}
+
+.navbar-custom .nav li.active {
+    outline: none;
+    background-color: #F2F2F2;
+}
+
+.navbar-custom .nav li a {
+    -webkit-transition: background .3s ease-in-out;
+    -moz-transition: background .3s ease-in-out;
+    transition: background .3s ease-in-out;
+}
+
+.navbar-nav .nav li a:hover,
+.navbar-nav .nav li a:focus,
+.navbar-nav .nav li a.active {
+    outline: 0;
+    background-color: rgba(255,255,255,.3);
+}
+
+.container-fluid{
+  height: 50px;
+}
+
+@media(min-width:500px) {
+    .navbar {
+        padding: 20px 0;
+        letter-spacing: 1px;
+        background: 0 0;
+        -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        transition: background .5s ease-in-out,padding .5s ease-in-out;
+    }
+
+    .top-nav-collapse {
+        height: 50px;
+        padding: 0;
+        background-color: white; 
+        border-bottom: 0.5px black solid;
+        border-width: 0.5px;
+        opacity: 0.9;
+        color: #000;
+    }
+
+    #gh-logo{
+      height: 50px;
+      width: 50px;
+    }
+
+/*    .navbar-custom.top-nav-collapse {
+        border-bottom: 1px solid rgba(255,255,255,.3);
+    }*/
+}
+
+header {
+	height: 50px;
+}
+
+body {
+  position: relative;
+  margin-top: 70px;
+}
+
+/**** sidenav styles ****/
+
+@media (min-width: 1000px) {
+  .sidebar.affix-top {
     position: static;
   	margin-top:25px;
   	width:228px;
   }
   
-  #sidebar.affix {
+  .sidebar.affix {
     position: fixed;
-    top:25px;
+    top:60px;
     width:228px;
+    padding: 0;
   }
 }
 
@@ -27,10 +119,46 @@ header {
   
 }
 
+.navbar-default {
+  border: 0;
+}
+
 a.list-group-item {
   background-color: #3186ad;
   color: white;
   font-weight: 300;
+  width: 228px;
+}
+
+.sidenav>li {
+  display: inline;
+  margin-bottom: 1px;
+}
+
+nav>li>a {
+  padding: 8px 15px;
+}
+
+
+.nav-tabs>li.active>a, 
+.nav-tabs>li.active>a:hover,
+.nav-tabs>li.active>a:focus {
+  border-bottom-color: #ddd;
+}
+
+.intro-text {
+  font-size: 12pt;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.about {
+  text-align: center;
+}
+
+h2 {
+  font-weight: 450;
+  letter-spacing: 1px;
 }
 
 samp {
@@ -47,6 +175,55 @@ hr {
   padding-bottom: 30px;
 }
 
-/*h2:first-letter{font-size:26pt;}
+ul h4 {
+  margin-left: -25px;
+}
 
-h2 {font-size:25pt;font-variant:small-caps}*/
+.sub-point {
+  padding-left: 25px;
+}
+
+.nav:img {
+    display: block;
+    margin: 0 auto;
+}
+
+#permissions-img{
+  width: 65%;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 25px;
+}
+
+#man-cat{
+  width: 30%;
+  display: inline-block;
+  margin-right: auto;
+  margin-left: 25%;
+  margin-bottom: 20px;
+}
+
+#cat-caption {
+  display: inline-block;
+  width: 25%;
+  margin-right: auto;
+  margin-left: 10px;
+}
+
+
+.nav>li>a[class~='gh-link'] {
+  vertical-align: center;
+  height: 50px;
+  width: 50px;
+  padding: 0;
+}
+
+.gh-link>img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
