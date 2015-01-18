@@ -295,7 +295,7 @@
   <p>This section explains how file and directory permisisons are represented
     and how to change them.</p>
 
-  <h4>Viewing Permissions</h4>
+  <h4>Viewing permissions</h4>
 
   <p>When you type the command <code>ls -l</code> (list long), the first column
     specifies the current permissions of all (non-hidden) files and directories
@@ -303,8 +303,10 @@
 
   <pre> <code>drwxr-xr-x</code></pre>
   <img src='images/permissions.png' alt='Permissions' id='permissions-img'>
+  <br>
+  <h4>Changing permissions</h4>
 
-  <p></p>
+  <p>The permissions of a file can be changed with the <code>chmod</code> command...</p>
 </section>
 
 <hr class="col-md-12">
@@ -338,42 +340,40 @@
   <h2>Basic Data Processing</h2>
 
   <p>This section shows some simple commands that can be used to subset data
-    for output to a file or for input into another command</p>
+    for output to a file or for input into another command.</p>
 
-  <h3>head</h3>
-
-  <p>The <code>head</code> command lets you view the first <i>n</i> lines of a
+  
+  <ul>
+  <li><p>The <code>head</code> command lets you view the first <i>n</i> lines of a
     file. By default, <code>head</code> displays the first 10 lines. Use the
     <code>-n</code> option to specify the number of lines. In files with a
-    header, <code>head -1 file</code> will display the header.</p>
+    header, <code>head -1 &lt;file&gt;</code> will display the header.</p></li>
 
-  <h4>tail</h4>
-
-  <p>The <code>tail</code> command lets you view the last <i>n</i> lines of a
+  <li><p>The <code>tail</code> command lets you view the last <i>n</i> lines of a
     file. Like head, it displays the last 10 lines by default. Use the
     <code>-n</code> option to specify the number of lines. With tail, it is
     also possible to specify where you want to begin displaying the file, using
     a <i>+</i>. <code> tail +2 file</code> will display a file from the second
     line onward. In files with a header, this command displays every line
-    except the header.</p>
+    except the header.</p></li>
 
-  <h4>sort</h4>
+  <li><p>The <code>sort</code> command lets you sort lines of a text file.</p></li>
+    <p class='sub-point'><code>sort -b &lt;file&gt;</code> ignores leading blanks</p>
+    <p class='sub-point'><code>sort -f &lt;file&gt;</code> ignores case of letters (folds lower case to upper case characters)</p>
+    <p class='sub-point'><code>sort -n &lt;file&gt;</code> compares according to string numerical value</p>
+    <p class='sub-point'><code>sort -r &lt;file&gt;</code> reverses the sorting order</p>
 
-  <p>The <code>sort</code> command lets you order data.</p>
 
-  <h4>cut</h4>
+  <li><p>The <code>cut</code> command lets you extract data from a file by column or field. This command can be executed in three forms:</p></li>
+    <p class='sub-point'><code>cut -b &lt;list&gt; &lt;file&gt;</code>, where the list after the <code>-b</code> option specifies byte position
+    <p class='sub-point'><code>cut -c &lt;list&gt; &lt;file&gt;</code>, where the list after the <code>-c</code> option specifies character position</p>
+    <p class='sub-point'><code>cut -f &lt;list&gt; -d &lt;delim&gt; &lt;file&gt;</code>, where the list after the <code>-f</code> option specifies field position (column number) and the argument after <code>-d</code> is the file delimiter.</p>
 
-  <p>The <code>cut</code> command lets you extract data from a file by column
-    or field.</p>
+  <li><p>The <code>uniq</code> command lets you find unique (or duplicated) lines
+    in a file.</p></li>
 
-  <h4>uniq</h4>
-
-  <p>The <code>uniq</code> command lets you find unique (or duplicated) lines
-    in a file.</p>
-
-  <h4>tr</h4>
-
-  <p>The <code>tr</code> command lets do character substitution.</p>
+  <li><p>The <code>tr</code> command lets do character substitution.</p></li>
+</ul>
 </section>
 
 <hr class="col-md-12">
