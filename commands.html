@@ -66,9 +66,9 @@
         </a></li>
         <li><a href="#remote" class="list-group-item">Connecting to Remote Machines
         </a></li>
-        <li><a href="#basic" class="list-group-item">Basic Data Filtering
+        <li><a href="#basic" class="list-group-item">Basic Data Manipulation
         </a></li>
-        <li><a href="#advanced" class="list-group-item">Advanced Data Filtering
+        <li><a href="#advanced" class="list-group-item">Advanced Data Manipulation
         </a></li>
         <li><a href="#resources" class="list-group-item">Learn More
         </a></li>
@@ -81,18 +81,18 @@
   <!-- ############################### Introduction ###############################-->
   <p class='intro-text'><br>This is a very basic introduction to UNIX, designed for the UC
     Berkeley School of Information's Data Mining and Analytics class. It is
-    focused on commands to help you obtain and investigate data sets.</p>
+    focused on commands to help you obtain and investigate data sets. This page reviews basic commands. Click over to the Data Manipulation page to practice applying these commands to analyze a data set of Yelp reviews.</p>
   <hr class="col-md-12">
 </section>
 
 <section id='using'>
   <!-- ############################### Basic Concepts ###############################-->
-  <h2>Basic Concepts</h2>
+  <h2>Using UNIX</h2>
 
   <h4>Accessing the shell</h4>
 
   <p>On a Mac computer, the shell can be accessed through the default application called <b>Terminal</b>. </p>
-  <p>On Windows, ... </p>
+  <p>On Windows, if you want to run UNIX commands directly on your machine, you need to download a tool. The most commonly used is <a href=https://cygwin.com/install.html>cygwin</a>. Cygwin has a lot of functionality that you may or may not want to install- you might check out <a href=https://www.youtube.com/watch?v=TjxEH_tr7e0>this tutorial</a> or others if you want to install it. Alternatively, if you have installed git on your windows machine, you probably have git bash, which you can use to practice the commands in this tutorial. Finally, instead of running the commands locally, you could instead log on to a remote machine with a UNIX-based operating system and work with your data there. If you are an I School student, you can use your I School computing account to log in to one of the I School linux servers. If you aren't an I School student but are enrolled in an I School class, ask your instructors for an I School computing account.</p>
 
   <h4>Basic Command Structure</h4>
 
@@ -115,8 +115,14 @@
 
   <h4>Standard Input and Output Redirection</h4>
 
-  <p>something from <a href='http://sc.tamu.edu/help/general/unix/redirection.html'>this website</a>... includes piping</p>
+  <p>UNIX processes, such as the commands we are practicing here, open three files: standard input, standard output, and standard error. For our purposes, we'll focus on standard output: you can read more about standard input, output, and error <a href='http://sc.tamu.edu/help/general/unix/redirection.html'>here</a>.</p>
 
+  <p> By default, the output of a command gets printed to the screen. We'll use the following to redirect standard output:
+    <ul>
+      <li><code>></code> to redirect output to a file (creating a new file, or overwriting an existing file)</li>
+      <li><code>>></code> to append output to a file</li>
+      <li><code>|</code> to redirect output to another command</li>
+    </ul></p>
 
   <h4 id='man'>Getting help</h4>
 
@@ -196,7 +202,7 @@
 
   <h4>Text Editors</h4>
 
-  <p>pico/nano- depends on what you have</p>
+  <p>You can create and edit text files directly from your terminal. <code>vi</code> and <code>emacs</code> are two commonly used text editors with a lot of rich functionality. There are also simpler editors like <code>pico</code>, which is available on the I School server. To use a text editor, type in the name of the editor followed by the filename, for example: <code>pico example.txt</code>. The editor will then display your file for editing.</p>
 </section>
 
 <hr class="col-md-12">
@@ -233,7 +239,7 @@
     <h4>Changing directories</h4>
     <li><code>cd &lt;directory path&gt;</code> changes your working directory.
     </li>
-    <p class='sub-point'><code>cd ..</code> moves up level to the parent
+    <p class='sub-point'><code>cd ..</code> moves up a level to the parent
       directory.</p>
 
     <h4>Creating and removing directories</h4>
@@ -302,11 +308,35 @@
     located in your current directory. It may look like this:</p>
 
   <pre> <code>drwxr-xr-x</code></pre>
+  <p>The first character specifies the file type: <i>-</i> for an ordinary file, <i>d</i> for a directory, and <i>l</i> for a symbolic link</p>
+
+  <p>The next nine characters are in groups of three, each representing the permissions for one of UNIX's three permission-tier categories: <b>user</b> (the owner of the file, listed in the 3rd field of <code>ls -l</code>), <b>group</b>, (the group owner of the file, listed in the 4th field of <code>ls -l</code>), and <b>other</b> (the permissions for everybody else). </p>
+
+  <p>The first character of each group of three is either a <b>r</b> or a <b>-</b> to indicate whether that category of user has <b>read</b> permission over the file. For an ordinary file, read permission means that category of user can view and open the file. For a directory, read permission means that the list of filenames stored in the directory is viewable (ie that category of user can use the <code>ls</code> command on that directory).</p>
+
+  <p>The second character of each group of three is either a <b>w</b> or a <b>-</b> to indicate whether that category of user has <b>write</b> permission over the file. For an ordinary file, write permission means that category of user can edit the file. For a directory, write permission means that the category of user can create or delete files within the directory.</p>
+
+  <p>The third character of each group of three is either a <b>x</b> or a <b>-</b> to indicate whether that category of user has <b>execute</b> permission over the file. For an ordinary file, execute permission means that the category of user can run the file as code. For a directory, execute permission means that the category of user can 'pass through' the directory (ie that category of user can use the <code>cd</code> command to navigate through the directory.)</p>
+
+  <p>Thus, the code snippet shown at the beginning of this section refers to a directory for which the user (owner) category has read, write, and execute privileges while the group and other categories have only read and execute privileges.</p>
+
   <img src='images/permissions.png' alt='Permissions' id='permissions-img'>
   <br>
   <h4>Changing permissions</h4>
 
-  <p>The permissions of a file can be changed with the <code>chmod</code> command...</p>
+  <p>The permissions of a file can be changed with the <code>chmod</code> command, which lets you add or remove permissions for the different permission tiers. From the previous example, adding write permissions for the group category to a file called example.txt would be done as so:</p>
+
+  <pre> <code>chmod g+w example.txt</code></pre>
+
+  <p>To then add write permissions for the other category:</p>
+
+  <pre> <code>chmod o+w example.txt</code></pre>
+
+  <p>To then remove write and execute permissions for the group and other categories:</p>
+  <pre> <code>chmod go-xw example.txt</code></pre>
+
+  <p>The above examples illustrate how the <code>chmod</code> command works: <code>chmod</code> is followed by a sequence of characters denoting the <b>user categories</b> for which to change permissions (<code>u</code> for user and/or <code>g</code> for group and/or <code>o</code> for other, or <code>a</code> for all (same as <code>ugo</code>), the <b>action</b> to take (<code>+</code> to add permissions or <code>-</code> to remove permissions), and the <b>permission(s)</b> to change (<code>r</code> for read, <code>w</code> for write, and/or <code>x</code> for execute). This sequence of characters is followed by the file name for which permission changes are to be applied.</p>
+
 </section>
 
 <hr class="col-md-12">
@@ -322,22 +352,47 @@
   <h4>ssh</h4>
 
   <p>The <code>ssh</code> command lets you securely connect to a remote UNIX
-    machine.</p>
+    machine. You can use this to, for example, remotely connect to the I School server. If your I School computing account user name is <i> user1</i>, you could log in to the I School UNIX machine like so:</p>
+
+  <pre> <code>ssh user1@ischool.berkeley.edu</code></pre>
+
+  <p>After being prompted for your password, you would be taken to your home directory on the I School server</p>
+
+  <p>If you use Windows and don't have a program like cygwin that lets you run UNIX commands locally, you can download <a href=http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html>putty</a> which will let you ssh into UNIX servers. The screenshot below shows an example of using ssh to log in to the I School server.</p>
+
+  <img src='images/putty.PNG' alt='putty' id='putty'>
 
   <h4>scp</h4>
 
-  <p>The <code>scp</code> command allows for secure transferring files to and
-    from a remote machine.</p>
+  <p>The <code>scp</code> command allows for the secure transferring files to and
+    from a remote machine. With <code>scp</code>, the remote location is specified as <i>hostname:filename</i></p>
+
+  <p>To copy a file called <i>example.txt</i> from your current local directory to a directory called <i>data</i> that's located within your home directory on hostname <i>ischool.berkeley.edu</i>:</p>
+
+  <pre> <code>scp example.txt user1@ischool.berkeley.edu:data/</code></pre>
+
+  <p>To copy a file called <i>example.txt</i> in the <i>data</i> directory of your home directory on hostname <i>ischool.berkeley.edu</i> into your current local directory:</p>
+
+  <pre> <code>scp user1@ischool.berkeley.edu:data/example.txt .</code></pre>
+
+  <p>In the above case, the <code>.</code> stands for your current directory.</p>
+
+  <p>The <code>-r</code> option of <code>scp</code> copies an entire directory tree. To copy your entire remote home directory to your current local directory:</p>
+
+  <pre> <code>scp -r user1@ischool.berkeley.edu:. .</code></pre>
 
   <h4>wget</h4>
 
-  <p>The <code>wget</code> command lets ou download files from the web.</p>
+  <p>The <code>wget</code> command lets you download files from the web. The following command downloads a zip file from example.com</p>
+
+  <pre> <code>wget http://example.com/example.zip</code></pre>
+
 </section>
 
 <hr class="col-md-12">
 <!-- ############################### Basic Filters ###############################-->
 <section id='basic'>
-  <h2>Basic Data Processing</h2>
+  <h2>Basic Data Manipulation</h2>
 
   <p>This section shows some simple commands that can be used to subset data
     for output to a file or for input into another command.</p>
@@ -362,6 +417,9 @@
     <p class='sub-point'><code>sort -f &lt;file&gt;</code> ignores case of letters (folds lower case to upper case characters)</p>
     <p class='sub-point'><code>sort -n &lt;file&gt;</code> compares according to string numerical value</p>
     <p class='sub-point'><code>sort -r &lt;file&gt;</code> reverses the sorting order</p>
+    <p class='sub-point'><code>sort -u &lt;file&gt;</code> removes repeated lines</p>
+     <p class='sub-point'><code>sort -k n &lt;file&gt;</code> sorts on the nth field</p>
+    <p class='sub-point'><code>sort -t<i>delim</i> &lt;file&gt;</code> specifies the field delimiter as <i>delim</i></p>
 
 
   <li><p>The <code>cut</code> command lets you extract data from a file by column or field. This command can be executed in three forms:</p></li>
@@ -369,17 +427,23 @@
     <p class='sub-point'><code>cut -c &lt;list&gt; &lt;file&gt;</code>, where the list after the <code>-c</code> option specifies character position</p>
     <p class='sub-point'><code>cut -f &lt;list&gt; -d &lt;delim&gt; &lt;file&gt;</code>, where the list after the <code>-f</code> option specifies field position (column number) and the argument after <code>-d</code> is the file delimiter.</p>
 
-  <li><p>The <code>uniq</code> command lets you find unique (or duplicated) lines
-    in a file.</p></li>
 
-  <li><p>The <code>tr</code> command lets do character substitution.</p></li>
+  <li><p>The <code>uniq</code> command lets you find unique (or duplicated) lines
+    in a file. It requires input to be sorted, so typically output from <code>sort</code> is piped to <code>uniq</code>.</p></li>
+      <p class='sub-point'><code>uniq -u &lt;file&gt;</code> selects non-repeating lines</p>
+      <p class='sub-point'><code>uniq -d &lt;file&gt;</code> selects one copy of duplicated lines</p>
+      <p class='sub-point'><code>uniq -c &lt;file&gt;</code> prepends each line with a count of the number of times it occurs</p>
+
+  <li><p>The <code>tr</code> command lets you do character substitution. The format of the <code>tr</code> command is <code>tr -option(s) 'to_replace' 'replace_with' standard_input</code>, where the to_replace and replace_with expressions are character sequences of the same length. Unlike the other commands in this section, <code>tr</code> does not take a filename as an argument; rather, it can take input from a pipe, or you can redirect input from a file by doing <code>tr -option(s) 'to_replace' 'replace_with' < filename</code></p></li>
+      <p class='sub-point'><code>tr -d 'char(s)'</code> deletes characters matching the specified sequence</p>
+      <p class='sub-point'><code>tr -s 'char'</code> reduces repeating consecutive occurrences of the specified character to a single character. This is useful for eliminating redundant spaces, by doing <code>tr -s ' '</code></p>
 </ul>
 </section>
 
 <hr class="col-md-12">
 <!-- ############################### Advanced Filters ###############################-->
 <section id='advanced'>
-  <h2>Advanced Data Processing</h2>
+  <h2>Advanced Data Manipulation</h2>
 
   <p> This section covers more advanced commands for manipulating data. It
     starts with an overview of <i>regular expressions</i>, which the commands
@@ -438,17 +502,16 @@
   <h3>Grep</h3>
 
   <p>The <code>grep</code> command searches for patterns within files, and
-    returns lines that have a match.</p>
+    returns lines that have a match.The format of the grep command is:</p>
 
-  <p>The format of the grep command is <i>grep options pattern filename(s).</i>
-  </p>
+  <pre> <code>grep [-option(s)] ['pattern'] [filename(s)]</code></pre>
 
   <p>Some useful grep options include:
   <ul>
     <li><code>-i</code> to ignore the case of the pattern when searching in the
       file
     </li>
-    <li><code>-v</code> to select line that don't match the pattern</li>
+    <li><code>-v</code> to select lines that don't match the pattern</li>
     <li><code>-w</code> to select only lines where the match is a whole word
       (rather than a part of the word)
     </li>
@@ -465,10 +528,8 @@
   <h3>Sed</h3>
 
   <p><code>Sed</code> stands for stream editor. It can do a lot, but we’ll
-    focus on its usage in substitution.</p>
-
-  <p>The format of the sed command is <i>sed options 'address action'
-    filename(s).</i></p>
+    focus on its usage in substitution.The format of the sed command is:</p>
+  <pre> <code>sed [-option(s)] ['address action']</code></pre>
 
   <p>The <b>address</b> specifies a line number or a range of line numbers:
     <code>(1,7)</code> would select lines 1-7. The <b>actions</b> include
@@ -484,8 +545,9 @@
   <h3>Awk</h3>
 
   <p><code>Awk</code> is a programming language useful for processing tabular
-    data. The format for an <code>awk</code> command is <i>awk options
-      ‘selection_criteria {action}’ filename(s)</i>. Use the <code>-F</code>
+    data. The format for an <code>awk</code> command is:</p>
+  <pre> <code>awk [-option(s)] ['selection_criteria {action}'] [filename(s)]</code></pre>
+    <p>Use the <code>-F</code>
     option to specify the field delimiter for the file. The default delimiter
     for <code>awk</code> is contiguous spaces and tabs.</p>
 
@@ -534,7 +596,7 @@
   <h2>Learn More</h2>
 
   <p>There is a lot more to UNIX than is explained on this short page. We
-    encourage you to check out the following resourcs to learn more</p>
+    encourage you to check out the following resources to learn more</p>
 
   <p>
   <ul>
@@ -542,8 +604,15 @@
         href=http://people.ischool.berkeley.edu/~kevin/unix-tutorial/toc.html>I
       School Unix Tutorial</a></li>
     <li><a
+        href=http://www.ee.surrey.ac.uk/Teaching/Unix/>UNIX Tutorial for Beginners</a></li>
+    <li><a
         href=http://openclassroom.stanford.edu/MainFolder/CoursePage.php?course=PracticalUnix>
       Practical Unix videos from Stanford</a></li>
+      <li><a href=http://www.gregreda.com/2013/07/15/unix-commands-for-data-science/>Useful UNIX Commands for Data Science</a></li>
+      <li><a
+        href=http://regexone.com/lesson/0>
+      Tutorial on Regular Expressions</a></li>
+
   </ul>
   </p>
 </section>

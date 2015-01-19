@@ -74,7 +74,7 @@
         <li><a href="#funniest-reviews" class="list-group-item">Funniest
           Reviews
         </a></li>
-        <li><a href="#funny-delicious" class="list-group-item">Funny &
+        <li><a href="#funny-delicious" class="list-group-item">Funny but not
           Delicious
         </a></li>
         <li><a href="#sed-replace" class="list-group-item">Replacing with sed
@@ -100,7 +100,7 @@
   the Yelp Academic dataset, which contains business reviews collected over
   multiple years in Phoenix, AZ. You can follow along with the questions in
   your shell, and play around with them to obtain different outputs. You can
-  obtain the data set... TBD.</p>
+  obtain the data set from the Files tab of the bCourses site for this class.</p>
 
 <hr class="col-md-12">
 <!-- ############################### PREVIEW ###############################-->
@@ -129,6 +129,8 @@
   back!"|review|rLtl8ZkDX5vH5nAx9C3q5Q|2.0|0.0|5.0
   ZRJwVLyzEJq1VAihDhYiow|2011-07-27|IjZ33sJrzXqU-0X6U8NwyA|5.0|"I have no idea
   why some people give bad reviews about this place. It goes to show you<br>...</samp>
+
+  <p>We can see that our data set is delimited by a |. Additionally we can see the column names in the first row.</p>
 
 <hr class="col-md-12">
 <!-- ############################### COUNT LINES ###############################-->
@@ -199,7 +201,7 @@
   option as <code>-d\|</code>. Since the pipe has a special meaning in the
   command line, we must escape it with a backslash.</p>
 
-<p>The field we want to select is stars, which is the 4th column. Unix indexes
+<p>The field we want to select is stars, which is the 4th column. UNIX indexes
   columns numerically (starting with 1), so we specify <code>-f4</code> to
   select the 4th column.</p>
 
@@ -251,7 +253,7 @@
 
 <p>Who are the top 10 users who have written the most reviews, and how many did
   they write? From the previous example, we can use the <code>uniq -c</code>
-  option to counts of how many times each duplicate user id is seen. We can
+  option to view counts of how many times each duplicate user id is seen. We can
   then pipe the results to <code>sort -r</code> to sort the counts in
   descending order, and use <code>head -10</code> to view the top 10.
 </p>
@@ -311,10 +313,10 @@
 <hr class="col-md-12">
 
 <!-- ############################### FUNNY DELICIOUS ###############################-->
-<h2 id="funny-delicious">Funny & Delicious</h2>
+<h2 id="funny-delicious">Funny but not Delicious</h2>
 
 <p>You can also use <code>sort</code> to sort <b>multiple columns</b>, in order
-  to break ties. Let's find the <b>funniest five-star reviews</b>!</p>
+  to break ties. Let's find the <b>funniest one-star reviews</b>!</p>
 
 <p>In this example, our primary sort will be on the stars column, so we'll
   specify this field first in the command. Note that we now specify two <code>-k</code>
@@ -353,11 +355,11 @@
   the first line (the header).</p>
 
 <p>Then, we'll use the <b>s/to_replace/replace_with</b> syntax to replace the
-  periods (which need to be escaped), since the period is a special character
-  in regular expressions, with an <code>_</code>. Finally, the substitution
+  periods (which need to be escaped, since the period is a special character
+  in regular expressions), with an <code>_</code>. Finally, the substitution
   expression needs to end with a <code>g</code>, to specify that we want to
   replace all occurrences of <code>.</code> with <code>_</code>. To just look
-  at the results, rather than write to a file,
+  at the results, rather than write to a file:
 </p>
 
 <pre> <code>sed '1s/\./_/g' yelp_reviews.txt | less</code></pre>
@@ -417,11 +419,10 @@
 <br><br><br>
 
 <p>If we want our downstream analysis to be steak-centric, we could use grep to
-  <b>output our results to a file</b>. Remove to remove the <code>-c</code>
-  option, so that you get the lines, and not just the count of lines</p>
+  <b>output our results to a file</b>. Remember to remove the <code>-c</code>
+  option so that grep outputs the actual lines, not the number of lines.</p>
 
-<pre> <code>grep -iw "steaks\?" yelp_reviews.txt >
-  steak_reviews.txt</code></pre>
+<pre> <code>grep -iw "steaks\?" yelp_reviews.txt > steak_reviews.txt</code></pre>
 
 <hr class="col-md-12">
 
